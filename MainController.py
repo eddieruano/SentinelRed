@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: Eddie Ruano
 # @Date:   2017-06-13 11:11:04
-# @Last Modified by:   eddieruano
-# @Last Modified time: 2017-06-13 15:03:20
+# @Last Modified by:   Eddie Ruano
+# @Last Modified time: 2017-06-13 15:20:32
 """
     MainController contains all threading control logic
 """
@@ -46,7 +46,7 @@ class MainController(object):
         pass
     # Start 
     def threadControlRead(self):
-        sleepTime = 3
+        sleepTime = 1
         while True:
             Houston.info("Control Panel Read.")
             time.sleep(sleepTime)
@@ -80,7 +80,7 @@ class MainController(object):
         greenLets.append(gevent.spawn(self.threadControlRead))
         greenLets.append(gevent.spawn(self.threadControlFix))
         greenLets.append(gevent.spawn(self.threadSensorRead))
-        gevent.joinall(all_greenlets)
+        gevent.joinall(greenLets)
 """Python Main Call"""
 if __name__ == "__main__":
     monkey.patch_all()
