@@ -2,7 +2,7 @@
 # @Author: Eddie Ruano
 # @Date:   2017-06-13 11:11:04
 # @Last Modified by:   Eddie Ruano
-# @Last Modified time: 2017-06-13 17:20:17
+# @Last Modified time: 2017-06-13 17:21:01
 """
     MainController contains all threading control logic
 """
@@ -14,7 +14,7 @@ import os
 ################################### PATHS #####################################
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-from Sensors import HCSR04
+import Sensors.HCSR04
 
 # Localities
 #from .Sensors import HCSRO4
