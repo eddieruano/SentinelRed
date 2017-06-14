@@ -2,14 +2,14 @@
 # @Author: Eddie Ruano
 # @Date:   2017-06-13 11:11:04
 # @Last Modified by:   Eddie Ruano
-# @Last Modified time: 2017-06-13 17:19:13
+# @Last Modified time: 2017-06-13 17:19:47
 """
     MainController contains all threading control logic
 """
 import logging
 import threading
 import time
-import os
+import sys
 ################################### PATHS #####################################
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
