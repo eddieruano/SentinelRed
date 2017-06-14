@@ -2,7 +2,7 @@
 # @Author: Eddie Ruano
 # @Date:   2017-06-13 11:11:04
 # @Last Modified by:   Eddie Ruano
-# @Last Modified time: 2017-06-13 17:35:52
+# @Last Modified time: 2017-06-13 17:44:36
 """
     MainController contains all threading control logic
 """
@@ -57,10 +57,13 @@ class MainController(object):
         # Create the threads
         dist = threading.Thread(name='ThreadV1', target=self.threadSensorRead, args=(Houston, self.Distance))
         check = threading.Thread(name='CheckC', target=self.threadControlRead, args=(Houston, self.Status))
+        dist.setDaemon(True)
+        check.setDaemon(True)
         try:
             # Start the threads
             dist.start()
             check.start()
+
             while True:
                 Houston.info("In the loop")
                 Houston.info("Dist: ")
@@ -87,10 +90,8 @@ class MainController(object):
             time.sleep(sleepTime)
     def threadSensorRead(self, Houston, Distance):
         sleepTime = 2
-        while True:
-            Houston.info("Sensors Read.")
-            Distance = self.Voyager1.measureDistCM()
-            time.sleep(sleepTime)
+        Houston.info("Sensors Read.")
+        Distance = self.Voyager1.measureDistCM()
     def threadUpdateWorkout(self):
         sleepTime = 3
         while True:
