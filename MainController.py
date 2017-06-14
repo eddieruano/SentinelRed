@@ -2,7 +2,7 @@
 # @Author: Eddie Ruano
 # @Date:   2017-06-13 11:11:04
 # @Last Modified by:   Eddie Ruano
-# @Last Modified time: 2017-06-13 17:29:38
+# @Last Modified time: 2017-06-13 17:34:13
 """
     MainController contains all threading control logic
 """
@@ -43,32 +43,36 @@ Houston.addHandler(HouStream)
 Houston.addHandler(HouFile)
 Houston.info("Logger has been created.")
 """ Initialization of Global Variables """
-Voyager1 = HCSR04.HCSR04("Voyager1", 17, 4)
+
 
 class MainController(object):
-    global Houston, Voyager1
+    global Houston
     Distance = 0.0
     Status = True
-    
+    Voyager1 = HCSR04.HCSR04("Voyager1", 17, 4)
     def __init__(self):
         pass
     def mainLoop(self):
         # Create the threads
         dist = threading.Thread(name='ThreadV1', target=self.threadSensorRead, args=(Houston, self.Distance))
         check = threading.Thread(name='CheckC', target=self.threadControlRead, args=(Houston, self.Status))
-        # Start the threads
-        dist.start()
-        check.start()
-        while True:
-            print("In the loop")
-            print("Dist: ")
-            print(self.Distance)
-            print("Status: ")
-            print(self.Status)
-            time.sleep(1)
-        dist.join()
-        check.join()
-    # Start 
+        try:
+            # Start the threads
+            dist.start()
+            check.start()
+            while True:
+                Houston.info("In the loop")
+                Houston.info("Dist: ")
+                Houston.info(self.Distance)
+                Houston.info("Status: ")
+                Houston.info(self.Status)
+                time.sleep(5)
+        except KeyboardInterrupt:
+            GPIO.cleanup()
+            dist.join()
+            check.join()
+            print("Shutdown Mission.")
+    # THREADS
     def threadControlRead(self, Houston, Status):
         sleepTime = 1
         while True:
