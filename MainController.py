@@ -2,7 +2,7 @@
 # @Author: Eddie Ruano
 # @Date:   2017-06-13 11:11:04
 # @Last Modified by:   Eddie Ruano
-# @Last Modified time: 2017-06-13 17:23:58
+# @Last Modified time: 2017-06-13 17:24:23
 """
     MainController contains all threading control logic
 """
@@ -43,12 +43,13 @@ Houston.addHandler(HouStream)
 Houston.addHandler(HouFile)
 Houston.info("Logger has been created.")
 """ Initialization of Global Variables """
+Voyager1 = HCSRO4.HCSRO4("Voyager1", 17, 4)
 
 class MainController(object):
-    global Houston, HCSR04
+    global Houston, Voyager1
     Distance = 0.0
     Status = True
-    Voyager1 = HCSRO4.HCSRO4("Voyager1", 17, 4)
+    
     def __init__(self):
         pass
     def mainLoop(self):
