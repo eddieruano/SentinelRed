@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: eddieruano
 # @Date:   2017-06-13 12:37:52
-# @Last Modified by:   eddieruano
-# @Last Modified time: 2017-06-13 15:02:45
+# @Last Modified by:   Eddie Ruano
+# @Last Modified time: 2017-06-13 17:15:50
 """
     DESI uses two HCSR04 proximity sensors to determine Megan's postition on the treadmill.
 """
@@ -35,9 +35,6 @@ HoustonLog.addHandler(HouStream)
 HoustonLog.addHandler(HouFile)
 Houston.info("Logger has been created.")
 
-# Setting Logging Level --Remove if final version
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s:%(levelname)s:%(message)s')
-
 class HCSR04(object):
     def __init__(self, name, trigger, echo):
         self.Name = name
@@ -64,7 +61,7 @@ class HCSR04(object):
         # save StartTime
         TimeElapsed = StartTime
         while GPIO.input(self.EchoPin) == 0:
-            self.StartTime = time.time()
+            StartTime = time.time()
             # if it goes too long
             if StartTime > (TimeElapsed + 0.1):
                 Houston.error("Sensor " + self.Name + " took too long.")
