@@ -2,7 +2,7 @@
 # @Author: eddieruano
 # @Date:   2017-06-13 12:37:52
 # @Last Modified by:   Eddie Ruano
-# @Last Modified time: 2017-06-13 17:17:28
+# @Last Modified time: 2017-06-13 17:36:37
 """
     DESI uses two HCSR04 proximity sensors to determine Megan's postition on the treadmill.
 """
@@ -49,8 +49,8 @@ class HCSR04(object):
         # Warnings False to avoid Clutter to control module
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(trigger, GPIO.OUT)
-        GPIO.setup(echo, GPIO.IN)
+        GPIO.setup(self.TriggerPin, GPIO.OUT)
+        GPIO.setup(self.EchoPin, GPIO.IN)
         # Set Trigger to HIGH
         GPIO.output(self.TriggerPin, True)
         # set Trigger after 0.01ms to LOW

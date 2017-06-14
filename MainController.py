@@ -2,15 +2,16 @@
 # @Author: Eddie Ruano
 # @Date:   2017-06-13 11:11:04
 # @Last Modified by:   Eddie Ruano
-# @Last Modified time: 2017-06-13 17:34:13
+# @Last Modified time: 2017-06-13 17:35:52
 """
     MainController contains all threading control logic
 """
+import RPi.GPIO as GPIO
 import logging
+import os
+import sys
 import threading
 import time
-import sys
-import os
 ################################### PATHS #####################################
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
