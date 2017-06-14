@@ -2,16 +2,15 @@
 # @Author: Eddie Ruano
 # @Date:   2017-06-13 11:11:04
 # @Last Modified by:   Eddie Ruano
-# @Last Modified time: 2017-06-13 15:20:32
+# @Last Modified time: 2017-06-13 17:14:48
 """
     MainController contains all threading control logic
 """
-import time
-import datetime
-import os
-import gevent
-from gevent import monkey
 import logging
+import threading
+import time
+
+from Sensors import HCSR04
 
 # Localities
 #from .Sensors import HCSRO4
@@ -42,47 +41,62 @@ Houston.info("Logger has been created.")
 """ Initialization of Global Variables """
 
 class MainController(object):
+    global Houston
+    Distance = 0.0
+    Status = True
+    Voyager1 = HCSRO4("Voyager1", 17, 4)
     def __init__(self):
         pass
+    def mainLoop(self):
+        # Create the threads
+        dist = threading.Thread(name="ThreadV1", target=threadSensorRead, args=(Houston, self.Distance))
+        check = threading.Thread(name="CheckC", target=threadControlRead, args=(Houston, self.Status))
+        # Start the threads
+        while True:
+            print("In the loop")
+            print("Dist: ")
+            print(self.Distance)
+            print("Status: ")
+            print(self.Status)
+            time.sleep(1)
+        dist.join()
+        check.join()
     # Start 
-    def threadControlRead(self):
+    def threadControlRead(self, Houston, Status):
         sleepTime = 1
         while True:
             Houston.info("Control Panel Read.")
+            Status = not Status
             time.sleep(sleepTime)
     def threadControlFix(self):
         sleepTime = 3
         while True:
-            Houston.info("Controls Fixed.")
+            #Houston.info("Controls Fixed.")
             time.sleep(sleepTime)
-    def threadSensorRead(self):
-        sleepTime = 3
+    def threadSensorRead(self, Houston, Distance):
+        sleepTime = 2
         while True:
             Houston.info("Sensors Read.")
+            Distance = self.Voyager1.measureDistCM()
             time.sleep(sleepTime)
     def threadUpdateWorkout(self):
         sleepTime = 3
         while True:
-            Houston.info("Workout Updated.")
+            #Houston.info("Workout Updated.")
             time.sleep(sleepTime)
     def threadWriteStatus(self):
         sleepTime = 3
         while True:
-            Houston.info("Writing to Status File.")
+            #Houston.info("Writing to Status File.")
             time.sleep(sleepTime)
     def threadSelfCheck(self):
         sleepTime = 3
         while True:
-            Houston.info("Running Self Check.")
+            #Houston.info("Running Self Check.")
             time.sleep(sleepTime)
-    def mainLoop(self):
-        greenLets = []
-        greenLets.append(gevent.spawn(self.threadControlRead))
-        greenLets.append(gevent.spawn(self.threadControlFix))
-        greenLets.append(gevent.spawn(self.threadSensorRead))
-        gevent.joinall(greenLets)
 """Python Main Call"""
 if __name__ == "__main__":
-    monkey.patch_all()
+    # Create Controller Loop
     mainController = MainController()
+    # Run Infinite Loop
     mainController.mainLoop()
