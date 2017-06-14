@@ -2,7 +2,7 @@
 # @Author: eddieruano
 # @Date:   2017-06-13 12:37:52
 # @Last Modified by:   Eddie Ruano
-# @Last Modified time: 2017-06-13 17:36:37
+# @Last Modified time: 2017-06-13 17:37:39
 """
     DESI uses two HCSR04 proximity sensors to determine Megan's postition on the treadmill.
 """
@@ -55,7 +55,7 @@ class HCSR04(object):
         GPIO.output(self.TriggerPin, True)
         # set Trigger after 0.01ms to LOW
         time.sleep(0.00001)
-        GPIO.output(self.triggerPin, False)
+        GPIO.output(self.TriggerPin, False)
         # Create holders for times
         StartTime = time.time()
         # save StartTime
