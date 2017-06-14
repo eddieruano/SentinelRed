@@ -2,7 +2,7 @@
 # @Author: Eddie Ruano
 # @Date:   2017-06-13 11:11:04
 # @Last Modified by:   Eddie Ruano
-# @Last Modified time: 2017-06-13 17:21:01
+# @Last Modified time: 2017-06-13 17:22:17
 """
     MainController contains all threading control logic
 """
@@ -48,7 +48,7 @@ class MainController(object):
     global Houston
     Distance = 0.0
     Status = True
-    Voyager1 = HCSRO4("Voyager1", 17, 4)
+    Voyager1 = HCSRO4.HCSRO4("Voyager1", 17, 4)
     def __init__(self):
         pass
     def mainLoop(self):
