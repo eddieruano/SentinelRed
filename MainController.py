@@ -2,7 +2,7 @@
 # @Author: Eddie Ruano
 # @Date:   2017-06-13 11:11:04
 # @Last Modified by:   Eddie Ruano
-# @Last Modified time: 2017-06-13 17:26:58
+# @Last Modified time: 2017-06-13 17:28:32
 """
     MainController contains all threading control logic
 """
@@ -54,8 +54,8 @@ class MainController(object):
         pass
     def mainLoop(self):
         # Create the threads
-        dist = threading.Thread(name="ThreadV1", target=threadSensorRead, args=(Houston, self.Distance))
-        check = threading.Thread(name="CheckC", target=threadControlRead, args=(Houston, self.Status))
+        dist = threading.Thread(name='ThreadV1', target=self.threadSensorRead, args=(Houston, self.Distance))
+        check = threading.Thread(name='CheckC', target=self.threadControlRead, args=(Houston, self.Status))
         # Start the threads
         while True:
             print("In the loop")
