@@ -2,7 +2,7 @@
 # @Author: Eddie Ruano
 # @Date:   2017-06-13 11:11:04
 # @Last Modified by:   Eddie Ruano
-# @Last Modified time: 2017-06-13 17:14:48
+# @Last Modified time: 2017-06-13 17:17:38
 """
     MainController contains all threading control logic
 """
@@ -35,8 +35,8 @@ HouStream = logging.StreamHandler()
 HouStream.setLevel(LogLevel)
 HouStream.setFormatter(HouForm)
 # Add all handlers to instance of Handler
-HoustonLog.addHandler(HouStream)
-HoustonLog.addHandler(HouFile)
+Houston.addHandler(HouStream)
+Houston.addHandler(HouFile)
 Houston.info("Logger has been created.")
 """ Initialization of Global Variables """
 

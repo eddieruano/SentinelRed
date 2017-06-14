@@ -2,7 +2,7 @@
 # @Author: eddieruano
 # @Date:   2017-06-13 12:37:52
 # @Last Modified by:   Eddie Ruano
-# @Last Modified time: 2017-06-13 17:16:48
+# @Last Modified time: 2017-06-13 17:17:28
 """
     DESI uses two HCSR04 proximity sensors to determine Megan's postition on the treadmill.
 """
@@ -31,8 +31,8 @@ HouStream = logging.StreamHandler()
 HouStream.setLevel(LogLevel)
 HouStream.setFormatter(HouForm)
 # Add all handlers to instance of Handler
-HoustonLog.addHandler(HouStream)
-HoustonLog.addHandler(HouFile)
+Houston.addHandler(HouStream)
+Houston.addHandler(HouFile)
 Houston.info("Logger has been created.")
 
 class HCSR04(object):
