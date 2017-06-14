@@ -2,7 +2,7 @@
 # @Author: Eddie Ruano
 # @Date:   2017-06-13 11:11:04
 # @Last Modified by:   Eddie Ruano
-# @Last Modified time: 2017-06-13 17:24:23
+# @Last Modified time: 2017-06-13 17:26:58
 """
     MainController contains all threading control logic
 """
@@ -17,7 +17,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 import Sensors.HCSR04 as HCSR04
 
 # Localities
-#from .Sensors import HCSRO4
+#from .Sensors import HCSR04
 
 """ Initialization of Central Logger """
 # Top Vars
@@ -43,7 +43,7 @@ Houston.addHandler(HouStream)
 Houston.addHandler(HouFile)
 Houston.info("Logger has been created.")
 """ Initialization of Global Variables """
-Voyager1 = HCSRO4.HCSRO4("Voyager1", 17, 4)
+Voyager1 = HCSR04.HCSR04("Voyager1", 17, 4)
 
 class MainController(object):
     global Houston, Voyager1
