@@ -2,7 +2,7 @@
 # @Author: Eddie Ruano
 # @Date:   2017-06-13 11:11:04
 # @Last Modified by:   Eddie Ruano
-# @Last Modified time: 2017-06-13 17:47:18
+# @Last Modified time: 2017-06-14 09:37:12
 """
     MainController contains all threading control logic
 """
@@ -55,7 +55,7 @@ class MainController(object):
         pass
     def mainLoop(self):
         # Create the threads
-        dist = threading.Thread(name='ThreadV1', target=self.threadSensorRead, args=(Houston, self.Distance))
+        dist = threading.Thread(name='ThreadV1', target=self.threadSensorRead, args=(Houston,)
         check = threading.Thread(name='CheckC', target=self.threadControlRead, args=(Houston, self.Status))
         dist.setDaemon(True)
         check.setDaemon(True)
@@ -87,7 +87,8 @@ class MainController(object):
         while True:
             #Houston.info("Controls Fixed.")
             time.sleep(sleepTime)
-    def threadSensorRead(self, Houston, Distance):
+    def threadSensorRead(self, Houston):
+        global Distance
         sleepTime = 2
         Houston.info("Sensors Read.")
         Distance = self.Voyager1.measureDistCM()
