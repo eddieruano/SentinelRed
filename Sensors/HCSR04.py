@@ -2,7 +2,7 @@
 # @Author: eddieruano
 # @Date:   2017-06-13 12:37:52
 # @Last Modified by:   Eddie Ruano
-# @Last Modified time: 2017-06-13 17:15:50
+# @Last Modified time: 2017-06-13 17:16:48
 """
     DESI uses two HCSR04 proximity sensors to determine Megan's postition on the treadmill.
 """
@@ -68,7 +68,7 @@ class HCSR04(object):
                 return(-1.0)
         # save time of arrival
         while GPIO.input(self.EchoPin) == 1:
-        StopTime = time.time()
+            StopTime = time.time()
         # time difference between start and arrival
         TimeElapsed = StopTime - StartTime
         # multiply with the sonic speed (34300 cm/s)
