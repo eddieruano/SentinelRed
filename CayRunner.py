@@ -20,6 +20,7 @@ class CayenneRunner(object):
                 self.Client.luxWrite(2, 5)
                 # Update localTimeStamp
                 localTimeStamp = time.time()
+                print("Sent")
     # The callback for when a message is received from Cayenne.
     def on_message(self, message):
         print("message received: " + str(message))
