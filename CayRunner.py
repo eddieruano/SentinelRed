@@ -12,11 +12,11 @@ class CayenneRunner(object):
     def MainLoop(self):
         self.Client.on_message = self.on_message
         self.Client.begin(self.MQTT_USERNAME, self.MQTT_PASSWORD, self.MQTT_CLIENT_ID)
+        localTimeStamp = time.time()
         while True:
             self.Client.loop()
             # Get Current Time
-            localTimeStamp = time.time()
-            if (localTimeStamp > localTimeStamp + self.SendInterval):
+            if (time.time() > localTimeStamp + self.SendInterval):
                 self.Client.luxWrite(2, 5)
                 # Update localTimeStamp
                 localTimeStamp = time.time()
