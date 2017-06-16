@@ -2,7 +2,7 @@
 # @Author: Eddie Ruano
 # @Date:   2017-06-13 11:11:04
 # @Last Modified by:   Eddie Ruano
-# @Last Modified time: 2017-06-16 08:13:33
+# @Last Modified time: 2017-06-16 13:09:35
 """
     MainController contains all threading control logic
 """
@@ -61,6 +61,7 @@ class MainController(object):
             # here you put your main loop or block of code  
             # Start the threads
             while True:
+                
                 time.sleep(5)
         except KeyboardInterrupt:  
             # Code runs before the program exits w/ CTRL+C
@@ -81,6 +82,11 @@ class MainController(object):
         Houston.info("Control Panel Read.")
         Status = False
         time.sleep(sleepTime)
+    def makeLogs(self):
+        pass
+        #import os, os.path
+        #if not os.path.exists("qe/logs/"):
+        #os.makedirs("qe/logs/")
 
 """Python Main Call"""
 if __name__ == "__main__":
