@@ -1,5 +1,7 @@
 import Cayenne.client
 import time
+import json
+import os
 
 class CayenneRunner(object):
     # Cayenne authentication info.
@@ -9,15 +11,20 @@ class CayenneRunner(object):
         self.MQTT_CLIENT_ID = "cf752200-529e-11e7-910e-05c4802271ed"
         self.Client = Cayenne.client.CayenneMQTTClient()
         self.SendInterval = 10
+        self.touchFile = "Touch.json"
+        self.topic = "TouchSensor/Reading"
     def MainLoop(self):
         self.Client.on_message = self.on_message
         self.Client.begin(self.MQTT_USERNAME, self.MQTT_PASSWORD, self.MQTT_CLIENT_ID)
         localTimeStamp = time.time()
+        tFile = open(self.touchFile)
+        touchData = json.load(tFile)
+        touchPayload = wjdata['TouchData']
         while True:
             self.Client.loop()
             # Get Current Time
             if (time.time() > localTimeStamp + self.SendInterval):
-                self.Client.luxWrite(2, 5)
+                self.Client.mqttPublish(self.topic, touchPayload):
                 # Update localTimeStamp
                 localTimeStamp = time.time()
                 print("Sent")

@@ -2,7 +2,7 @@
 # @Author: Eddie Ruano
 # @Date:   2017-06-13 11:11:04
 # @Last Modified by:   Eddie Ruano
-# @Last Modified time: 2017-06-16 07:25:12
+# @Last Modified time: 2017-06-16 08:13:33
 """
     MainController contains all threading control logic
 """
@@ -16,6 +16,7 @@ import time
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 import Sensors.HCSR04 as HCSR04
+import Sensors.MPR121 as MPR121
 
 # Localities
 #from .Sensors import HCSR04
@@ -51,6 +52,7 @@ class MainController(object):
     Distance = 0.0
     Status = True
     Voyager1 = HCSR04.HCSR04("Voyager1", 17, 4)
+    TouchSensor = MPR121.MPR121()
     def __init__(self):
         pass
     def mainLoop(self):
