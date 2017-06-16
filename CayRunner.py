@@ -19,7 +19,7 @@ class CayenneRunner(object):
         localTimeStamp = time.time()
         tFile = open(self.touchFile)
         touchData = json.load(tFile)
-        touchPayload = wjdata['TouchData']
+        touchPayload = touchData['TouchData']
         while True:
             self.Client.loop()
             # Get Current Time
