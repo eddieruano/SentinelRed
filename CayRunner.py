@@ -24,7 +24,7 @@ class CayenneRunner(object):
             self.Client.loop()
             # Get Current Time
             if (time.time() > localTimeStamp + self.SendInterval):
-                self.Client.mqttPublish(self.topic, touchPayload):
+                self.Client.mqttPublish(self.topic, touchPayload)
                 # Update localTimeStamp
                 localTimeStamp = time.time()
                 print("Sent")
