@@ -2,7 +2,7 @@
 # @Author: Eddie Ruano
 # @Date:   2017-06-13 11:11:04
 # @Last Modified by:   Eddie Ruano
-# @Last Modified time: 2017-06-14 09:37:12
+# @Last Modified time: 2017-06-16 07:25:12
 """
     MainController contains all threading control logic
 """
@@ -23,7 +23,7 @@ import Sensors.HCSR04 as HCSR04
 """ Initialization of Central Logger """
 # Top Vars
 LogLevel = logging.DEBUG        ## Change this later
-LogLocation = "mainLog.txt"
+LogLocation = "Logs/MainLog.txt"
 #-------S8Proto
 # Create Instance of Logger
 Houston = logging.getLogger(__name__)
@@ -43,11 +43,11 @@ HouStream.setFormatter(HouForm)
 Houston.addHandler(HouStream)
 Houston.addHandler(HouFile)
 Houston.info("Logger has been created.")
-""" Initialization of Global Variables """
 
+"""#### BEGIN MAIN CONTROLLER CLASS ####"""
 
 class MainController(object):
-    global Houston
+    global Houston # Need to access the Logger
     Distance = 0.0
     Status = True
     Voyager1 = HCSR04.HCSR04("Voyager1", 17, 4)
@@ -55,61 +55,59 @@ class MainController(object):
         pass
     def mainLoop(self):
         # Create the threads
-        dist = threading.Thread(name='ThreadV1', target=self.threadSensorRead, args=(Houston,)
-        check = threading.Thread(name='CheckC', target=self.threadControlRead, args=(Houston, self.Status))
-        dist.setDaemon(True)
-        check.setDaemon(True)
-        try:
+        try:  
+            # here you put your main loop or block of code  
             # Start the threads
-            dist.start()
-            check.start()
-
             while True:
-                Houston.info("In the loop")
-                Houston.info("Dist: ")
-                Houston.info(self.Distance)
-                Houston.info("Status: ")
-                Houston.info(self.Status)
                 time.sleep(5)
-        except KeyboardInterrupt:
-            GPIO.cleanup()
-            dist.join()
-            check.join()
-            print("Shutdown Mission.")
+        except KeyboardInterrupt:  
+            # Code runs before the program exits w/ CTRL+C
+            Houston.info("Mission Shutdown By Supervisor")
+        except:  
+            # this catches ALL other exceptions including errors.  
+            # You won't get any error messages for debugging  
+            # so only use it once your code is working  
+            Houston.error("Error occurred. Caught in Last Except")
+        finally:  
+            # this ensures a clean exit with GPIO PINS
+            GPIO.cleanup() 
+            Houston.info("Finally Mission was Shutdown.")
+    ##### END OF MAIN CONTROLLER FUNCTION #####
     # THREADS
     def threadControlRead(self, Houston, Status):
         sleepTime = 1
         Houston.info("Control Panel Read.")
         Status = False
         time.sleep(sleepTime)
-    def threadControlFix(self):
-        sleepTime = 3
-        while True:
-            #Houston.info("Controls Fixed.")
-            time.sleep(sleepTime)
-    def threadSensorRead(self, Houston):
-        global Distance
-        sleepTime = 2
-        Houston.info("Sensors Read.")
-        Distance = self.Voyager1.measureDistCM()
-    def threadUpdateWorkout(self):
-        sleepTime = 3
-        while True:
-            #Houston.info("Workout Updated.")
-            time.sleep(sleepTime)
-    def threadWriteStatus(self):
-        sleepTime = 3
-        while True:
-            #Houston.info("Writing to Status File.")
-            time.sleep(sleepTime)
-    def threadSelfCheck(self):
-        sleepTime = 3
-        while True:
-            #Houston.info("Running Self Check.")
-            time.sleep(sleepTime)
+
 """Python Main Call"""
 if __name__ == "__main__":
     # Create Controller Loop
     mainController = MainController()
     # Run Infinite Loop
     mainController.mainLoop()
+    #     def threadControlFix(self):
+    #     sleepTime = 3
+    #     while True:
+    #         #Houston.info("Controls Fixed.")
+    #         time.sleep(sleepTime)
+    # def threadSensorRead(self, Houston):
+    #     global Distance
+    #     sleepTime = 2
+    #     Houston.info("Sensors Read.")
+    #     Distance = self.Voyager1.measureDistCM()
+    # def threadUpdateWorkout(self):
+    #     sleepTime = 3
+    #     while True:
+    #         #Houston.info("Workout Updated.")
+    #         time.sleep(sleepTime)
+    # def threadWriteStatus(self):
+    #     sleepTime = 3
+    #     while True:
+    #         #Houston.info("Writing to Status File.")
+    #         time.sleep(sleepTime)
+    # def threadSelfCheck(self):
+    #     sleepTime = 3
+    #     while True:
+    #         #Houston.info("Running Self Check.")
+    #         time.sleep(sleepTime)
