@@ -7,7 +7,7 @@ class CayenneRunner(object):
         self.MQTT_USERNAME  = "674bb4c0-529c-11e7-8ab6-097b71ab053c"
         self.MQTT_PASSWORD  = "153bb352f5dd66528fa819307b297aea6bd35012"
         self.MQTT_CLIENT_ID = "cf752200-529e-11e7-910e-05c4802271ed"
-        self.Client = cayenne.client.CayenneMQTTClient()
+        self.Client = Cayenne.client.CayenneMQTTClient()
         self.SendInterval = 10
     def MainLoop(self):
         self.Client.on_message = on_message
