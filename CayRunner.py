@@ -21,7 +21,7 @@ class CayenneRunner(object):
                 # Update localTimeStamp
                 localTimeStamp = time.time()
     # The callback for when a message is received from Cayenne.
-    def on_message(message):
+    def on_message(self, message):
         print("message received: " + str(message))
         # If there is an error processing the message return an error string, otherwise return nothing.
 
