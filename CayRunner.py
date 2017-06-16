@@ -1,4 +1,4 @@
-import cayenne.client
+import Cayenne.client
 import time
 
 class CayenneRunner(object):
