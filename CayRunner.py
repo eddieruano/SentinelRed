@@ -1,4 +1,4 @@
-import cayenne-mqtt.client
+import cayenne.client
 import time
 
 class CayenneRunner(object):
