@@ -10,7 +10,7 @@ class CayenneRunner(object):
         self.Client = Cayenne.client.CayenneMQTTClient()
         self.SendInterval = 10
     def MainLoop(self):
-        self.Client.on_message = on_message
+        self.Client.on_message = self.on_message
         Client.begin(self.MQTT_USERNAME, self.MQTT_PASSWORD, self.MQTT_CLIENT_ID)
         while True:
             self.Client.loop()
